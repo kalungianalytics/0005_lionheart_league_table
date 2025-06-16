@@ -66,16 +66,22 @@ st.markdown("""
         <a href='https://www.justgiving.com/team/sdl-lhh25' target='_blank' style='
             background-color: #FF6B6B;
             color: white;
-            padding: 0.75rem 2rem;
+            padding: 0.75rem 1.5rem;
             text-decoration: none;
             border-radius: 0.5rem;
             font-weight: bold;
-            font-size: 1.2rem;
-        '>💖 Donate to support LionHeart</a>
+            font-size: 1.1rem;
+            display: inline-block;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        '>💖 Donate Now</a>
     </div>
     
     <h1 style='text-align:center; margin-top:-1rem;'>League Tables – Week One</h3>
 """, unsafe_allow_html=True)
+
 
 # --- Load Data ---
 df = pd.read_csv("data.csv")
