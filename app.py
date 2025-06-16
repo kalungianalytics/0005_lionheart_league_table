@@ -62,7 +62,7 @@ st.markdown("""
         text-align: center;
         margin-bottom: 2rem;
     '>
-        <h2 style='color: white; margin-bottom: 1rem;'>Please consider donating to support the amazing efforts of our teams!</h2>
+        <h2 style='color: white; margin-bottom: 1rem;'>Please consider donating to Lionheart to support the amazing efforts of our teams!</h2>
         <a href='https://www.justgiving.com/team/sdl-lhh25' target='_blank' style='
             background-color: #FF6B6B;
             color: white;
