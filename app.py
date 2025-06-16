@@ -74,7 +74,7 @@ st.markdown("""
         '>💖 Donate to support LionHeart</a>
     </div>
     
-    <h3 style='text-align:center; margin-top:-1rem;'>League Tables – Week One</h3>
+    <h1 style='text-align:center; margin-top:-1rem;'>League Tables – Week One</h3>
 """, unsafe_allow_html=True)
 
 # --- Load Data ---
