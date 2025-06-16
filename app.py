@@ -172,22 +172,27 @@ for league in df['League'].unique():
 
 # --- Donate Banner ---
 st.markdown("""
-    <div style='
+ <div style='
         background-color:#3F1F5A;
         padding: 1.5rem;
         border-radius: 1rem;
         text-align: center;
         margin-bottom: 2rem;
     '>
-        <h2 style='color: white; margin-bottom: 1rem;'>Please consider donating to support the amazing efforts of our teams!</h2>
+        <h2 style='color: white; margin-bottom: 1rem;'>Please consider donating to Lionheart to support the amazing efforts of our teams!</h2>
         <a href='https://www.justgiving.com/team/sdl-lhh25' target='_blank' style='
             background-color: #FF6B6B;
             color: white;
-            padding: 0.75rem 2rem;
+            padding: 0.75rem 1.5rem;
             text-decoration: none;
             border-radius: 0.5rem;
             font-weight: bold;
-            font-size: 1.2rem;
-        '>💖 Donate to support LionHeart</a>
+            font-size: 1.1rem;
+            display: inline-block;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        '>💖 Donate Now</a>
     </div>
 """, unsafe_allow_html=True)
