@@ -47,11 +47,34 @@ st.markdown(f"""
 st.image("logo.jpg", use_container_width=True)
 
 # --- Intro ---
-st.markdown("""
-Please consider donating to support the amazing efforts of our teams!  
+#st.markdown("""
+#Please consider donating to support the amazing efforts of our teams!  
 
-[👉 Donate to support LionHeart](https://www.justgiving.com/team/sdl-lhh25)
+#[👉 Donate to support LionHeart](https://www.justgiving.com/team/sdl-lhh25)
+#""", unsafe_allow_html=True)
+
+# --- Donate Banner ---
+st.markdown("""
+    <div style='
+        background-color:#3F1F5A;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        text-align: center;
+        margin-bottom: 2rem;
+    '>
+        <h2 style='color: white; margin-bottom: 1rem;'>Please consider donating to support the amazing efforts of our teams!</h2>
+        <a href='https://www.justgiving.com/team/sdl-lhh25' target='_blank' style='
+            background-color: #FF6B6B;
+            color: white;
+            padding: 0.75rem 2rem;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+        '>💖 Donate to support LionHeart</a>
+    </div>
 """, unsafe_allow_html=True)
+
 
 # --- Load Data ---
 df = pd.read_csv("data.csv")
