@@ -147,14 +147,14 @@ def plot_league_data(league_df, league_name):
     # Start line & whistle
     start_y = len(df_sorted) - 0.5 + 0.2
     top_y = y_positions[-1] + 0.75  # First (top) bar's y-position
-    ax.axvline(x=0, color='#555555', linestyle='--', linewidth=0.5)
+    ax.axvline(x=0, color='#eeeeee', linestyle='--', linewidth=0.75)
     start_flag_img = mpimg.imread("whistle.png")
     start_icon = OffsetImage(start_flag_img, zoom=0.05)
     ab_start = AnnotationBbox(start_icon, (0, start_y), frameon=False, box_alignment=(0.5, 0))
     ax.add_artist(ab_start)
 
     # Finish line & flag
-    ax.axvline(x=100, color='#AAAAAA', linestyle='--', linewidth=0.5)
+    ax.axvline(x=100, color='#eeeeee', linestyle='--', linewidth=0.75)
     flag_img = mpimg.imread("checkered_flag.png")
     flag_icon = OffsetImage(flag_img, zoom=0.05)
     ab_flag = AnnotationBbox(flag_icon, (102.5, start_y), frameon=False, box_alignment=(0.5, 0))
