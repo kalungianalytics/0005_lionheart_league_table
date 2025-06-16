@@ -48,8 +48,7 @@ st.image("logo.jpg", use_container_width=True)
 
 # --- Intro ---
 st.markdown("""
-Welcome to the Distance Covered Dashboard!  
-This platform celebrates the amazing efforts of all the teams taking part.
+Please consider donating to support the amazing efforts of our teams!  
 
 [👉 Donate to support LionHeart](https://www.justgiving.com/team/sdl-lhh25)
 """, unsafe_allow_html=True)
@@ -136,7 +135,7 @@ def plot_league_data(league_df, league_name):
 
 # --- Display Each League ---
 for league in df['League'].unique():
-    st.markdown(f"### {league}")
+    st.markdown(f"## {league}")
     league_df = df[df['League'] == league]
     fig = plot_league_data(league_df, league)
     st.pyplot(fig)
