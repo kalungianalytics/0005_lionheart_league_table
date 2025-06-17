@@ -43,17 +43,14 @@ st.markdown(f"""
     </style>
 """, unsafe_allow_html=True)
 
-# --- Logo ---
-st.image("logo.jpg", use_container_width=True)
-# --- Credits ---
 # --- Credits ---
 st.markdown("""
     <div style='
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: -1rem;
-        margin-bottom: 2rem;
+        margin-top: 1.5rem;
+        margin-bottom: 2.5rem;
         font-size: 16px;
         color: #CCCCCC;
     '>
@@ -64,6 +61,12 @@ st.markdown("""
         </span>
     </div>
 """, unsafe_allow_html=True)
+
+
+# --- Logo ---
+st.image("logo.jpg", use_container_width=True)
+
+
 
 # --- Intro ---
 #st.markdown("""
