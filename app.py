@@ -157,7 +157,7 @@ def plot_league_data(league_df, league_name, flag_img, start_img, whistle_img):
     # Labels on left and right of bars
     for i, (value, name) in enumerate(zip(df_sorted['% Distance Covered'][:num_bars], df_sorted['Team Name'][:num_bars])):
         ax.text(x=value - 2.5, y=i, s=name, ha='right', va='center',
-                fontsize=18, color='white', weight='bold', fontproperties=font_prop)
+                fontsize=16, color='white', weight='bold', fontproperties=font_prop)
         label_text = "" if value == 0 else f"{value:.1f}%"
         ax.text(x=value + 2.5, y=i, s=label_text, ha='left', va='center',
                 fontsize=16, color='white', fontproperties=font_prop)
