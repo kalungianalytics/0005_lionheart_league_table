@@ -90,6 +90,8 @@ st.markdown("""
             text-overflow: ellipsis;
         '>💖 Donate Now</a>
     </div>
+
+    <h1 style='text-align:center; margin-top:-1rem;'>League Tables – Week Two</h3>
 """, unsafe_allow_html=True)
 
 # --- Caching data load ---
