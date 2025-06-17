@@ -103,7 +103,7 @@ def load_image(path):
     return mpimg.imread(path)
 
 # --- Cache loading league-specific runner images ---
-@st.cache_resource(show_spinner=False)
+#@st.cache_resource(show_spinner=False)
 def load_league_images(league_number):
     folder_path = os.path.join("images", str(league_number))
     if not os.path.exists(folder_path):
@@ -133,7 +133,8 @@ def plot_league_data(league_df, league_name, flag_img, start_img, whistle_img):
     max_bars = 20
     num_bars = min(len(df_sorted), max_bars)
 
-    fig, ax = plt.subplots(figsize=(14, 0.65 * num_bars))
+    #fig, ax = plt.subplots(figsize=(14, 0.65 * num_bars))
+    fig, ax = plt.subplots(figsize=(10, 0.4 * num_bars))
     fig.patch.set_facecolor('#171717')
     ax.set_facecolor('#171717')
     ax.axis('off')
@@ -176,10 +177,10 @@ def plot_league_data(league_df, league_name, flag_img, start_img, whistle_img):
 
     return fig
 
-# --- Display league tables ---
-for league in df['League'].unique():
-    st.markdown(f"## {league}")
-    league_df = df[df['League'] == league]
-    fig = plot_league_data(league_df, league, flag_img, start_img, whistle_img)
-    st.pyplot(fig)
-    plt.close(fig)
+# --- Interactive single league display ---
+selected_league = st.selectbox("Select a League", sorted(df['League'].unique()))
+league_df = df[df['League'] == selected_league]
+fig = plot_league_data(league_df, selected_league, flag_img, start_img, whistle_img)
+st.pyplot(fig)
+plt.close(fig)
+
