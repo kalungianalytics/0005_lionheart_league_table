@@ -63,7 +63,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Logo ---
-#st.image("logo.jpg", use_container_width=True)
+
 st.image("logo.png", use_container_width=True)
 
 # --- Donate banner ---
