@@ -43,25 +43,6 @@ st.markdown(f"""
     </style>
 """, unsafe_allow_html=True)
 
-# --- Credits ---
-st.markdown("""
-    <div style='
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 1.5rem;
-        margin-bottom: 2.5rem;
-        font-size: 16px;
-        color: #CCCCCC;
-    '>
-        <span>Designed by <strong>Kalungi Analytics</strong> · 
-            <a href='https://www.linkedin.com/in/ben-sharpe-49659a207/' target='_blank' style='color: #FF6B6B; text-decoration: none; margin-left: 4px;'>
-                Connect on LinkedIn
-            </a>
-        </span>
-    </div>
-""", unsafe_allow_html=True)
-
 
 # --- Logo ---
 st.image("logo.jpg", use_container_width=True)
@@ -184,19 +165,13 @@ def plot_league_data(league_df, league_name):
 
     return fig
 
-# --- Handle URL Query Parameters ---
-query_params = st.experimental_get_query_params()
-selected_league = query_params.get("league", [None])[0]
 
-# --- Display League Charts (filtered if query param exists) ---
-leagues_to_display = [selected_league] if selected_league in df['League'].unique() else df['League'].unique()
-
-for league in leagues_to_display:
+# --- Display Each League ---
+for league in df['League'].unique():
     st.markdown(f"## {league}")
     league_df = df[df['League'] == league]
     fig = plot_league_data(league_df, league)
     st.pyplot(fig)
-
 
 # --- Donate Banner ---
 st.markdown("""
