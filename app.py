@@ -46,10 +46,22 @@ st.markdown(f"""
 # --- Logo ---
 st.image("logo.jpg", use_container_width=True)
 # --- Credits ---
+# --- Credits ---
 st.markdown("""
-    <div style='text-align: center; margin-top: -1rem; margin-bottom: 2rem; font-size: 0.95rem; color: #bbbbbb;'>
-        Designed by <strong>Kalungi Analytics</strong> · 
-        <a href='https://www.linkedin.com/in/ben-sharpe-49659a207/' target='_blank' style='color: #FF6B6B; text-decoration: none;'>Connect on LinkedIn</a>
+    <div style='
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: -1rem;
+        margin-bottom: 2rem;
+        font-size: 16px;
+        color: #CCCCCC;
+    '>
+        <span>Designed by <strong>Kalungi Analytics</strong> · 
+            <a href='https://www.linkedin.com/in/ben-sharpe-49659a207/' target='_blank' style='color: #FF6B6B; text-decoration: none; margin-left: 4px;'>
+                Connect on LinkedIn
+            </a>
+        </span>
     </div>
 """, unsafe_allow_html=True)
 
