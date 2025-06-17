@@ -184,13 +184,19 @@ def plot_league_data(league_df, league_name):
 
     return fig
 
+# --- Handle URL Query Parameters ---
+query_params = st.experimental_get_query_params()
+selected_league = query_params.get("league", [None])[0]
 
-# --- Display Each League ---
-for league in df['League'].unique():
+# --- Display League Charts (filtered if query param exists) ---
+leagues_to_display = [selected_league] if selected_league in df['League'].unique() else df['League'].unique()
+
+for league in leagues_to_display:
     st.markdown(f"## {league}")
     league_df = df[df['League'] == league]
     fig = plot_league_data(league_df, league)
     st.pyplot(fig)
+
 
 # --- Donate Banner ---
 st.markdown("""
