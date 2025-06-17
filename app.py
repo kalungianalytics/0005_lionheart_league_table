@@ -13,7 +13,7 @@ font_prop = font_manager.FontProperties(fname=font_path)
 mpl.rcParams['font.family'] = font_prop.get_name()
 
 # --- Streamlit Config ---
-st.set_page_config(page_title="Distance Covered Dashboard", layout="wide")
+st.set_page_config(page_title="Lionheart 2025 HQ Hop League Tables", layout="wide")
 
 # --- Custom CSS ---
 st.markdown(f"""
@@ -45,6 +45,13 @@ st.markdown(f"""
 
 # --- Logo ---
 st.image("logo.jpg", use_container_width=True)
+# --- Credits ---
+st.markdown("""
+    <div style='text-align: center; margin-top: -1rem; margin-bottom: 2rem; font-size: 0.95rem; color: #bbbbbb;'>
+        Designed by <strong>Kalungi Analytics</strong> · 
+        <a href='https://www.linkedin.com/in/ben-sharpe-49659a207/' target='_blank' style='color: #FF6B6B; text-decoration: none;'>Connect on LinkedIn</a>
+    </div>
+""", unsafe_allow_html=True)
 
 # --- Intro ---
 #st.markdown("""
@@ -79,7 +86,7 @@ st.markdown("""
         '>💖 Donate Now</a>
     </div>
     
-    <h1 style='text-align:center; margin-top:-1rem;'>League Tables – Week One</h3>
+    <h1 style='text-align:center; margin-top:-1rem;'>League Tables – Week Two</h3>
 """, unsafe_allow_html=True)
 
 
