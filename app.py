@@ -162,7 +162,11 @@ def plot_league_data(league_df, league_name, flag_img, start_img, whistle_img):
         ax.text(x=value + 2.5, y=i, s=label_text, ha='left', va='center',
                 fontsize=16, color='white', fontproperties=font_prop)
 
-    ax.set_xlim(0, 110)
+    #ax.set_xlim(0, 110)
+    max_value = df_sorted['% Distance Covered'][:num_bars].max()
+    buffer = 5  # Adjust as needed
+    ax.set_xlim(0, max(110, max_value + buffer))
+
     ax.set_ylim(-1, y_positions[-1] + 1.2)
 
     # Start line & whistle icon
