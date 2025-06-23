@@ -197,7 +197,7 @@ inv_week_map = {v: k for k, v in week_map.items()}
 default_week = max(week_map.keys())  # Auto-select latest week
 
 st.markdown(
-    "<div style='font-size:1.2rem; font-weight:bold; color:#FFFFFF; margin-bottom:0.5rem;'>📅 Select Week</div>",
+    "<div style='font-size:1.2rem; font-weight:bold; color:#FFFFFF; margin-bottom:0.2rem;'>📅 Select Week</div>",
     unsafe_allow_html=True
 )
 
