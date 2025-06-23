@@ -183,6 +183,7 @@ def plot_league_data(league_df, league_name, flag_img, start_img, whistle_img):
     ax.add_artist(ab_flag)
 
     return fig
+st.write(df.columns.tolist())
 
 # --- Week selection radio buttons ---
 week_map = {week: f"Week {week}" for week in sorted(df['Week'].unique())}
