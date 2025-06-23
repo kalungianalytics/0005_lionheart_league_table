@@ -43,6 +43,16 @@ st.markdown(f"""
     </style>
 """, unsafe_allow_html=True)
 
+# --- Optional: Increase radio button text size for testing ---
+st.markdown("""
+    <style>
+        /* Increase font size of radio button labels */
+        div[data-baseweb="radio"] > div {
+            font-size: 1.15rem !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # --- Credits bar ---
 st.markdown("""
     <div style='
@@ -200,11 +210,11 @@ default_week = max(week_map.keys())  # Auto-select latest week
 st.markdown(
     """
     <div style='
-        font-size:1.2rem;
+        font-size:1.4rem;
         font-weight:bold;
         color:#FFFFFF;
         margin-bottom:0.2rem;
-        line-height:1.2;
+        line-height:0.5;
     '>📅 Select Week</div>
     """,
     unsafe_allow_html=True
