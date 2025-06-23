@@ -46,11 +46,9 @@ st.markdown(f"""
 # --- Force larger radio button font ---
 st.markdown("""
     <style>
-        /* Target labels inside radio buttons */
-        .stRadio > div > label {
-            font-size: 1.2rem !important;
-            font-weight: 500 !important;
-            color: white !important;
+        /* Make radio button labels larger */
+        label[data-testid="stMarkdownContainer"] + div div[role="radiogroup"] label {
+            font-size: 1.125rem !important; /* ~18px */
         }
     </style>
 """, unsafe_allow_html=True)
