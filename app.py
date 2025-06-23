@@ -92,7 +92,7 @@ st.markdown("""
         '>💖 Donate Now</a>
     </div>
 
-    <h1 style='text-align:center; margin-top:-1rem;'>League Tables – Week Two</h3>
+    #<h1 style='text-align:center; margin-top:-1rem;'>League Tables – Week Two</h3>
 """, unsafe_allow_html=True)
 
 # --- Caching data load ---
@@ -160,7 +160,7 @@ def plot_league_data(league_df, league_name, flag_img, start_img, whistle_img):
                 fontsize=16, color='white', weight='bold', fontproperties=font_prop)
         label_text = "" if value == 0 else f"{value:.1f}%"
         ax.text(x=value + 4.5, y=i, s=label_text, ha='left', va='center',
-                fontsize=14, color='#FF6B6B', fontproperties=font_prop)
+                fontsize=14, color='#0398CE', fontproperties=font_prop)
 
     #ax.set_xlim(0, 110)
     max_value = df_sorted['% Distance Covered'][:num_bars].max()
@@ -183,6 +183,26 @@ def plot_league_data(league_df, league_name, flag_img, start_img, whistle_img):
     ax.add_artist(ab_flag)
 
     return fig
+
+# --- Week selection radio buttons ---
+week_map = {week: f"Week {week}" for week in sorted(df['Week'].unique())}
+inv_week_map = {v: k for k, v in week_map.items()}
+
+default_week = max(week_map.keys())  # Auto-select latest week
+selected_label = st.radio(
+    "Select Week:",
+    list(week_map.values()),
+    index=list(week_map.values()).index(f"Week {default_week}"),
+    horizontal=True,
+)
+
+selected_week = inv_week_map[selected_label]
+df = df[df['Week'] == selected_week]
+
+# --- Update headline text ---
+st.markdown(f"""
+    <h1 style='text-align:center; margin-top:-1rem;'>League Tables – {selected_label}</h1>
+""", unsafe_allow_html=True)
 
 # --- Display league tables ---
 for league in df['League'].unique():
