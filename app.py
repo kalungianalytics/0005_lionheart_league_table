@@ -158,7 +158,12 @@ def plot_league_data(league_df, league_name, flag_img, start_img, whistle_img):
         ax.text(x=value - 2.5, y=i, s=name, ha='right', va='center',
                 fontsize=16, color='white', weight='bold', fontproperties=font_prop)
         label_text = "" if value == 0 else f"{value:.1f}%"
-        label_color = '#80CFA9' if value >= 100 else '#FF6B6B'
+        if value >= 100:
+            label_color = '#80CFA9'   # Green
+        elif value >= 85:
+            label_color = '#FFD700'   # Gold
+        else:
+            label_color = '#FF6B6B'   # Red
         ax.text(x=value + 4.5, y=i, s=label_text, ha='left', va='center',
                 fontsize=14, color=label_color, fontproperties=font_prop)
 
