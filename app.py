@@ -196,14 +196,24 @@ week_map = {week: f"Week {week}" for week in sorted(df['Week'].unique())}
 inv_week_map = {v: k for k, v in week_map.items()}
 default_week = max(week_map.keys())  # Auto-select latest week
 
+# --- Week selection heading (tight spacing) ---
 st.markdown(
-    "<div style='font-size:1.2rem; font-weight:bold; color:#FFFFFF; margin-bottom:0.2rem;'>📅 Select Week</div>",
+    """
+    <div style='
+        font-size:1.2rem;
+        font-weight:bold;
+        color:#FFFFFF;
+        margin-bottom:0.2rem;
+        line-height:1.2;
+    '>📅 Select Week</div>
+    """,
     unsafe_allow_html=True
 )
 
+# --- Radio buttons (label hidden for no extra space) ---
 selected_label = st.radio(
-    "",  # leave Streamlit label blank to avoid duplication
-    list(week_map.values()),
+    label="",  # Empty label avoids double spacing
+    options=list(week_map.values()),
     index=list(week_map.values()).index(f"Week {default_week}"),
     horizontal=True,
 )
