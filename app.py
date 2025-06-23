@@ -194,10 +194,15 @@ def plot_league_data(league_df, league_name, flag_img, start_img, whistle_img):
 # --- Week selection radio buttons ---
 week_map = {week: f"Week {week}" for week in sorted(df['Week'].unique())}
 inv_week_map = {v: k for k, v in week_map.items()}
-
 default_week = max(week_map.keys())  # Auto-select latest week
+
+st.markdown(
+    "<div style='font-size:1.2rem; font-weight:bold; color:#FFFFFF; margin-bottom:0.5rem;'>📅 Select Week</div>",
+    unsafe_allow_html=True
+)
+
 selected_label = st.radio(
-    "Select Week:",
+    "",  # leave Streamlit label blank to avoid duplication
     list(week_map.values()),
     index=list(week_map.values()).index(f"Week {default_week}"),
     horizontal=True,
