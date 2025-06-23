@@ -92,7 +92,6 @@ st.markdown("""
         '>💖 Donate Now</a>
     </div>
 
-    #<h1 style='text-align:center; margin-top:-1rem;'>League Tables – Week Two</h3>
 """, unsafe_allow_html=True)
 
 # --- Caching data load ---
@@ -159,8 +158,10 @@ def plot_league_data(league_df, league_name, flag_img, start_img, whistle_img):
         ax.text(x=value - 2.5, y=i, s=name, ha='right', va='center',
                 fontsize=16, color='white', weight='bold', fontproperties=font_prop)
         label_text = "" if value == 0 else f"{value:.1f}%"
+        label_color = '#80CFA9' if value >= 100 else '#FF6B6B'
         ax.text(x=value + 4.5, y=i, s=label_text, ha='left', va='center',
-                fontsize=14, color='#0398CE', fontproperties=font_prop)
+                fontsize=14, color=label_color, fontproperties=font_prop)
+
 
     #ax.set_xlim(0, 110)
     max_value = df_sorted['% Distance Covered'][:num_bars].max()
@@ -183,7 +184,7 @@ def plot_league_data(league_df, league_name, flag_img, start_img, whistle_img):
     ax.add_artist(ab_flag)
 
     return fig
-st.write(df.columns.tolist())
+
 
 # --- Week selection radio buttons ---
 week_map = {week: f"Week {week}" for week in sorted(df['Week'].unique())}
