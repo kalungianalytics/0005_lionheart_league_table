@@ -48,7 +48,7 @@ st.markdown("""
     <style>
         /* Increase font size of radio button labels */
         div[data-baseweb="radio"] > div {
-            font-size: 1.15rem !important;
+            font-size: 1.5rem !important;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -213,7 +213,7 @@ st.markdown(
         font-size:1.4rem;
         font-weight:bold;
         color:#FFFFFF;
-        margin-bottom:0.2rem;
+        margin-bottom:0.01rem;
         line-height:0.5;
     '>📅 Select Week</div>
     """,
