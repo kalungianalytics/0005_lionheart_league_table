@@ -181,47 +181,47 @@ def plot_league_data(league_df, league_name, flag_img, start_img, whistle_img):
 
     return fig
 
-# === Week selector (moved just before league outputs) ===
+# --- Week setup ---
 week_map = {week: f"Week {week}" for week in sorted(df['Week'].unique())}
 inv_week_map = {v: k for k, v in week_map.items()}
 default_week = max(week_map.keys())
 
-st.markdown(
-    """
-    <div style='
-        font-size:1.4rem;
-        font-weight:bold;
-        color:#FFFFFF;
-        margin-bottom:0.01rem;
-        line-height:0.5;
-    '>📅 Select Week</div>
-    """,
-    unsafe_allow_html=True
-)
+# --- Session state: sync all week radios ---
+if "selected_week" not in st.session_state:
+    st.session_state.selected_week = default_week
 
-selected_label = st.radio(
-    label="",
-    options=list(week_map.values()),
-    index=list(week_map.values()).index(f"Week {default_week}"),
-    horizontal=True,
-)
+# --- Filter once based on current week ---
+current_week = st.session_state.selected_week
+df = df[df["Week"] == current_week]
 
-selected_week = inv_week_map[selected_label]
-df = df[df['Week'] == selected_week]
-
+# --- Headline ---
 st.markdown(f"""
-    <h1 style='text-align:center; margin-top:-1rem;'>League Tables – {selected_label}</h1>
+    <h1 style='text-align:center; margin-top:-1rem;'>League Tables – Week {current_week}</h1>
 """, unsafe_allow_html=True)
 
-# --- Display league tables ---
+# --- Display each league with its own week selector (synced) ---
 for league in df['League'].unique():
     st.markdown(f"## {league}")
-    league_df = df[df['League'] == league]
+
+    # Week selector for this league (syncs globally)
+    selected_label = st.radio(
+        label="📅 Select Week",
+        options=list(week_map.values()),
+        index=list(week_map.keys()).index(st.session_state.selected_week),
+        horizontal=True,
+        key=f"week_radio_{league}",
+        on_change=lambda l=league: st.session_state.update(
+            selected_week=inv_week_map[st.session_state[f"week_radio_{l}"]]
+        ),
+    )
+
+    # Plot league
+    league_df = df[df["League"] == league]
     fig = plot_league_data(league_df, league, flag_img, start_img, whistle_img)
     st.pyplot(fig)
     plt.close(fig)
 
-# --- Donate banner again ---
+# --- Final donate banner ---
 st.markdown("""
     <div style='
         background-color:#3F1F5A;
@@ -248,7 +248,7 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# --- Final credits again ---
+# --- Final credits ---
 st.markdown("""
     <div style='
         display: flex;
