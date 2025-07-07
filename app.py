@@ -243,3 +243,50 @@ for league in df['League'].unique():
     fig = plot_league_data(league_df, league, flag_img, start_img, whistle_img)
     st.pyplot(fig)
     plt.close(fig)
+
+# --- Donate banner ---
+st.markdown("""
+    <div style='
+        background-color:#3F1F5A;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        text-align: center;
+        margin-bottom: 2rem;
+    '>
+        <h2 style='color: white; margin-bottom: 1rem;'>Please consider donating to Lionheart to support the amazing efforts of our teams!</h2>
+        <a href='https://www.justgiving.com/team/sdl-lhh25' target='_blank' style='
+            background-color: #FF6B6B;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: inline-block;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        '>💖 Donate Now</a>
+    </div>
+
+""", unsafe_allow_html=True)
+
+# --- Credits bar ---
+st.markdown("""
+    <div style='
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1.5rem;
+        margin-bottom: 2.5rem;
+        font-size: 16px;
+        color: #CCCCCC;
+    '>
+        <span>Designed by <strong>Kalungi Analytics</strong> · 
+            <a href='https://www.linkedin.com/in/ben-sharpe-49659a207/' target='_blank' style='color: #FF6B6B; text-decoration: none; margin-left: 4px;'>
+                Connect on LinkedIn
+            </a>
+        </span>
+    </div>
+""", unsafe_allow_html=True)
