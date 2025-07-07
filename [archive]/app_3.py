@@ -43,16 +43,6 @@ st.markdown(f"""
     </style>
 """, unsafe_allow_html=True)
 
-# --- Force larger radio button font ---
-st.markdown("""
-    <style>
-        /* Make radio button labels larger */
-        label[data-testid="stMarkdownContainer"] + div div[role="radiogroup"] label {
-            font-size: 1.125rem !important; /* ~18px */
-        }
-    </style>
-""", unsafe_allow_html=True)
-
 # --- Credits bar ---
 st.markdown("""
     <div style='
@@ -73,8 +63,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Logo ---
-
-st.image("images/logo.png", use_container_width=True)
+st.image("logo.jpg", use_container_width=True)
 
 # --- Donate banner ---
 st.markdown("""
@@ -101,7 +90,6 @@ st.markdown("""
             text-overflow: ellipsis;
         '>💖 Donate Now</a>
     </div>
-
 """, unsafe_allow_html=True)
 
 # --- Caching data load ---
@@ -126,9 +114,9 @@ def load_league_images(league_number):
 
 # --- Load data and images once ---
 df = load_data()
-flag_img = load_image("images/checkered_flag.png")
-start_img= load_image("images/start_icon.png")
-whistle_img = load_image("images/whistle.png")
+flag_img = load_image("checkered_flag.png")
+start_img = load_image("start_icon.png")
+whistle_img = load_image("whistle.png")
 
 # Map League to League Number (for folder)
 league_to_number = df.drop_duplicates(subset=['League'])[['League', 'League Number']].set_index('League')['League Number'].to_dict()
@@ -166,23 +154,12 @@ def plot_league_data(league_df, league_name, flag_img, start_img, whistle_img):
     # Labels on left and right of bars
     for i, (value, name) in enumerate(zip(df_sorted['% Distance Covered'][:num_bars], df_sorted['Team Name'][:num_bars])):
         ax.text(x=value - 2.5, y=i, s=name, ha='right', va='center',
-                fontsize=16, color='white', weight='bold', fontproperties=font_prop)
+                fontsize=18, color='white', weight='bold', fontproperties=font_prop)
         label_text = "" if value == 0 else f"{value:.1f}%"
-        if value >= 100:
-            label_color = '#80CFA9'   # Green
-        elif value >= 85:
-            label_color = '#FFD700'   # Gold
-        else:
-            label_color = '#FF6B6B'   # Red
-        ax.text(x=value + 4.5, y=i, s=label_text, ha='left', va='center',
-                fontsize=14, color=label_color, fontproperties=font_prop)
+        ax.text(x=value + 2.5, y=i, s=label_text, ha='left', va='center',
+                fontsize=16, color='white', fontproperties=font_prop)
 
-
-    #ax.set_xlim(0, 110)
-    max_value = df_sorted['% Distance Covered'][:num_bars].max()
-    buffer = 5  # Adjust as needed
-    ax.set_xlim(0, max(110, max_value + buffer))
-
+    ax.set_xlim(0, 110)
     ax.set_ylim(-1, y_positions[-1] + 1.2)
 
     # Start line & whistle icon
@@ -200,42 +177,6 @@ def plot_league_data(league_df, league_name, flag_img, start_img, whistle_img):
 
     return fig
 
-
-# --- Week selection radio buttons ---
-week_map = {week: f"Week {week}" for week in sorted(df['Week'].unique())}
-inv_week_map = {v: k for k, v in week_map.items()}
-default_week = max(week_map.keys())  # Auto-select latest week
-
-# --- Week selection heading (tight spacing) ---
-st.markdown(
-    """
-    <div style='
-        font-size:1.4rem;
-        font-weight:bold;
-        color:#FFFFFF;
-        margin-bottom:0.01rem;
-        line-height:0.5;
-    '>📅 Select Week</div>
-    """,
-    unsafe_allow_html=True
-)
-
-# --- Radio buttons (label hidden for no extra space) ---
-selected_label = st.radio(
-    label="",  # Empty label avoids double spacing
-    options=list(week_map.values()),
-    index=list(week_map.values()).index(f"Week {default_week}"),
-    horizontal=True,
-)
-
-selected_week = inv_week_map[selected_label]
-df = df[df['Week'] == selected_week]
-
-# --- Update headline text ---
-st.markdown(f"""
-    <h1 style='text-align:center; margin-top:-1rem;'>League Tables – {selected_label}</h1>
-""", unsafe_allow_html=True)
-
 # --- Display league tables ---
 for league in df['League'].unique():
     st.markdown(f"## {league}")
@@ -243,50 +184,3 @@ for league in df['League'].unique():
     fig = plot_league_data(league_df, league, flag_img, start_img, whistle_img)
     st.pyplot(fig)
     plt.close(fig)
-
-# --- Donate banner ---
-st.markdown("""
-    <div style='
-        background-color:#3F1F5A;
-        padding: 1.5rem;
-        border-radius: 1rem;
-        text-align: center;
-        margin-bottom: 2rem;
-    '>
-        <h2 style='color: white; margin-bottom: 1rem;'>Please consider donating to Lionheart to support the amazing efforts of our teams!</h2>
-        <a href='https://www.justgiving.com/team/sdl-lhh25' target='_blank' style='
-            background-color: #FF6B6B;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            text-decoration: none;
-            border-radius: 0.5rem;
-            font-weight: bold;
-            font-size: 1.1rem;
-            display: inline-block;
-            max-width: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        '>💖 Donate Now</a>
-    </div>
-
-""", unsafe_allow_html=True)
-
-# --- Credits bar ---
-st.markdown("""
-    <div style='
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 1.5rem;
-        margin-bottom: 2.5rem;
-        font-size: 16px;
-        color: #CCCCCC;
-    '>
-        <span>Designed by <strong>Kalungi Analytics</strong> · 
-            <a href='https://www.linkedin.com/in/ben-sharpe-49659a207/' target='_blank' style='color: #FF6B6B; text-decoration: none; margin-left: 4px;'>
-                Connect on LinkedIn
-            </a>
-        </span>
-    </div>
-""", unsafe_allow_html=True)
