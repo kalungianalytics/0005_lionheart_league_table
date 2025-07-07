@@ -46,9 +46,8 @@ st.markdown(f"""
 # --- Force larger radio button font ---
 st.markdown("""
     <style>
-        /* Make radio button labels larger */
         label[data-testid="stMarkdownContainer"] + div div[role="radiogroup"] label {
-            font-size: 1.125rem !important; /* ~18px */
+            font-size: 1.125rem !important;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -73,7 +72,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Logo ---
-
 st.image("images/logo.png", use_container_width=True)
 
 # --- Donate banner ---
@@ -101,7 +99,6 @@ st.markdown("""
             text-overflow: ellipsis;
         '>💖 Donate Now</a>
     </div>
-
 """, unsafe_allow_html=True)
 
 # --- Caching data load ---
@@ -114,23 +111,21 @@ def load_data():
 def load_image(path):
     return mpimg.imread(path)
 
-# --- Cache loading league-specific runner images ---
-#@st.cache_resource(show_spinner=False)
+# --- League-specific runner icons ---
 def load_league_images(league_number):
     folder_path = os.path.join("images", str(league_number))
     if not os.path.exists(folder_path):
         return []
     image_files = sorted([f for f in os.listdir(folder_path) if f.endswith(".png")])
-    images = [mpimg.imread(os.path.join(folder_path, f)) for f in image_files]
-    return images
+    return [mpimg.imread(os.path.join(folder_path, f)) for f in image_files]
 
-# --- Load data and images once ---
+# --- Load data and images ---
 df = load_data()
 flag_img = load_image("images/checkered_flag.png")
-start_img= load_image("images/start_icon.png")
+start_img = load_image("images/start_icon.png")
 whistle_img = load_image("images/whistle.png")
 
-# Map League to League Number (for folder)
+# --- Map League to Number ---
 league_to_number = df.drop_duplicates(subset=['League'])[['League', 'League Number']].set_index('League')['League Number'].to_dict()
 
 # --- Plotting function ---
@@ -138,7 +133,7 @@ def plot_league_data(league_df, league_name, flag_img, start_img, whistle_img):
     df_sorted = league_df.sort_values(by="% Distance Covered").reset_index(drop=True)
     league_number = league_to_number.get(league_name, 1)
     runner_images = load_league_images(league_number)
-    
+
     if not runner_images or df_sorted.empty:
         return plt.figure()
 
@@ -146,7 +141,6 @@ def plot_league_data(league_df, league_name, flag_img, start_img, whistle_img):
     num_bars = min(len(df_sorted), max_bars)
 
     fig, ax = plt.subplots(figsize=(14, 0.65 * num_bars))
-    #fig, ax = plt.subplots(figsize=(10, 0.4 * num_bars))
     fig.patch.set_facecolor('#171717')
     ax.set_facecolor('#171717')
     ax.axis('off')
@@ -154,45 +148,32 @@ def plot_league_data(league_df, league_name, flag_img, start_img, whistle_img):
     bar_height = 0.7
     y_positions = range(num_bars)
 
-    ax.barh(y=y_positions, width=df_sorted['% Distance Covered'][:num_bars], height=bar_height, color=(0,0,0,0))
+    ax.barh(y=y_positions, width=df_sorted['% Distance Covered'][:num_bars], height=bar_height, color=(0, 0, 0, 0))
 
-    # Add runner icons, alternating
     for i, value in enumerate(df_sorted['% Distance Covered'][:num_bars]):
         img = runner_images[i % len(runner_images)]
         icon = OffsetImage(img, zoom=0.05, resample=True)
         ab = AnnotationBbox(icon, (value, i), frameon=False, box_alignment=(0.5, 0.5))
         ax.add_artist(ab)
 
-    # Labels on left and right of bars
     for i, (value, name) in enumerate(zip(df_sorted['% Distance Covered'][:num_bars], df_sorted['Team Name'][:num_bars])):
         ax.text(x=value - 2.5, y=i, s=name, ha='right', va='center',
                 fontsize=16, color='white', weight='bold', fontproperties=font_prop)
         label_text = "" if value == 0 else f"{value:.1f}%"
-        if value >= 100:
-            label_color = '#80CFA9'   # Green
-        elif value >= 85:
-            label_color = '#FFD700'   # Gold
-        else:
-            label_color = '#FF6B6B'   # Red
+        label_color = '#80CFA9' if value >= 100 else '#FFD700' if value >= 85 else '#FF6B6B'
         ax.text(x=value + 4.5, y=i, s=label_text, ha='left', va='center',
                 fontsize=14, color=label_color, fontproperties=font_prop)
 
-
-    #ax.set_xlim(0, 110)
     max_value = df_sorted['% Distance Covered'][:num_bars].max()
-    buffer = 5  # Adjust as needed
-    ax.set_xlim(0, max(110, max_value + buffer))
-
+    ax.set_xlim(0, max(110, max_value + 5))
     ax.set_ylim(-1, y_positions[-1] + 1.2)
 
-    # Start line & whistle icon
     start_y = num_bars - 0.5 + 0.2
     ax.axvline(x=0, color='#eeeeee', linestyle='--', linewidth=0.75)
     start_icon = OffsetImage(whistle_img, zoom=0.05)
     ab_start = AnnotationBbox(start_icon, (0, start_y), frameon=False, box_alignment=(0.5, 0))
     ax.add_artist(ab_start)
 
-    # Finish line & checkered flag icon
     ax.axvline(x=100, color='#eeeeee', linestyle='--', linewidth=0.75)
     flag_icon = OffsetImage(flag_img, zoom=0.05)
     ab_flag = AnnotationBbox(flag_icon, (102.5, start_y), frameon=False, box_alignment=(0.5, 0))
@@ -200,13 +181,11 @@ def plot_league_data(league_df, league_name, flag_img, start_img, whistle_img):
 
     return fig
 
-
-# --- Week selection radio buttons ---
+# === Week selector (moved just before league outputs) ===
 week_map = {week: f"Week {week}" for week in sorted(df['Week'].unique())}
 inv_week_map = {v: k for k, v in week_map.items()}
-default_week = max(week_map.keys())  # Auto-select latest week
+default_week = max(week_map.keys())
 
-# --- Week selection heading (tight spacing) ---
 st.markdown(
     """
     <div style='
@@ -220,9 +199,8 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# --- Radio buttons (label hidden for no extra space) ---
 selected_label = st.radio(
-    label="",  # Empty label avoids double spacing
+    label="",
     options=list(week_map.values()),
     index=list(week_map.values()).index(f"Week {default_week}"),
     horizontal=True,
@@ -231,7 +209,6 @@ selected_label = st.radio(
 selected_week = inv_week_map[selected_label]
 df = df[df['Week'] == selected_week]
 
-# --- Update headline text ---
 st.markdown(f"""
     <h1 style='text-align:center; margin-top:-1rem;'>League Tables – {selected_label}</h1>
 """, unsafe_allow_html=True)
@@ -244,7 +221,7 @@ for league in df['League'].unique():
     st.pyplot(fig)
     plt.close(fig)
 
-# --- Donate banner ---
+# --- Donate banner again ---
 st.markdown("""
     <div style='
         background-color:#3F1F5A;
@@ -269,10 +246,9 @@ st.markdown("""
             text-overflow: ellipsis;
         '>💖 Donate Now</a>
     </div>
-
 """, unsafe_allow_html=True)
 
-# --- Credits bar ---
+# --- Final credits again ---
 st.markdown("""
     <div style='
         display: flex;
