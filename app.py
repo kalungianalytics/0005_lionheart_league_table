@@ -74,7 +74,7 @@ st.markdown("""
 
 # --- Logo ---
 
-st.image("logo.png", use_container_width=True)
+st.image("images/logo.png", use_container_width=True)
 
 # --- Donate banner ---
 st.markdown("""
@@ -126,9 +126,8 @@ def load_league_images(league_number):
 
 # --- Load data and images once ---
 df = load_data()
-flag_img = load_image("checkered_flag.png")
-start_img = load_image("start_icon.png")
-whistle_img = load_image("whistle.png")
+flag_img = load_image("images/checkered_flag.png")
+whistle_img = load_image("images/whistle.png")
 
 # Map League to League Number (for folder)
 league_to_number = df.drop_duplicates(subset=['League'])[['League', 'League Number']].set_index('League')['League Number'].to_dict()
