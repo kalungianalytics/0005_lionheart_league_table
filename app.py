@@ -77,7 +77,6 @@ else:
     st.warning("Logo not found.")
 
 # --- Initial donate banner ---
-st.markdown("### Support the Cause")
 st.markdown("""
     <div style='background-color:#3F1F5A; padding: 1.5rem; border-radius: 1rem; text-align: center; margin-bottom: 2rem;'>
         <h2 style='color: white; margin-bottom: 1rem;'>Please consider donating to Lionheart to support the amazing efforts of our teams!</h2>
@@ -222,7 +221,6 @@ for league in df['League'].unique():
 # ============================== #
 
 # --- Final donate banner ---
-st.markdown("### Final Call to Support")
 st.markdown("""
     <div style='background-color:#3F1F5A; padding: 1.5rem; border-radius: 1rem; text-align: center; margin-bottom: 2rem;'>
         <h2 style='color: white; margin-bottom: 1rem;'>Please consider donating to Lionheart to support the amazing efforts of our teams!</h2>
